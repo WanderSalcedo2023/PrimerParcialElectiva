@@ -1,0 +1,18 @@
+    # .github/workflows/deploy.yml
+    name: Deploy to Surge
+    on:
+      push:
+        branches:
+          - main  # O la rama que uses para producción
+    jobs:
+      deploy:
+        runs-on: ubuntu-latest
+        steps:
+          - uses: actions/checkout@v3
+          - name: Install Surge
+            run: npm install -g surge
+          - name: Deploy to Surge
+            run: surge ./ public --token ${{ secrets.SURGE_TOKEN }}
+            env:
+              SURGE_LOGIN: wanderaudiovisual@gmail.com # Reemplaza con tu usuario de Surge
+              SURGE_TOKEN: ${{ secrets.SURGE_TOKEN }} # Token de acceso a Surge
